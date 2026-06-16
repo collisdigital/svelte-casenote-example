@@ -71,9 +71,29 @@ echo "==> Pushing images..."
 docker push "${REGISTRY}/frontend:latest"
 docker push "${REGISTRY}/mock-api:latest"
 
+# ── 5b. Resolve pushed digests ────────────────────────────────────────────────
+# :latest tags are not re-resolved by `gcloud run services replace` — it diffs
+# the YAML and sees no change, so no new revision is created. Pinning to the
+# exact digest guarantees a fresh revision every deploy.
+echo "==> Resolving image digests..."
+FRONTEND_DIGEST=$(gcloud artifacts docker images describe \
+  "${REGISTRY}/frontend:latest" \
+  --project="${PROJECT_ID}" \
+  --format="value(image_summary.digest)")
+MOCK_API_DIGEST=$(gcloud artifacts docker images describe \
+  "${REGISTRY}/mock-api:latest" \
+  --project="${PROJECT_ID}" \
+  --format="value(image_summary.digest)")
+
+echo "    frontend: ${FRONTEND_DIGEST}"
+echo "    mock-api: ${MOCK_API_DIGEST}"
+
 # ── 6. Deploy multi-container Cloud Run service ────────────────────────────────
 echo "==> Deploying Cloud Run service '${SERVICE_NAME}'..."
-sed "s|REGISTRY_PLACEHOLDER|${REGISTRY}|g" deploy/cloudrun.yaml \
+sed \
+  -e "s|REGISTRY_PLACEHOLDER/frontend:latest|${REGISTRY}/frontend@${FRONTEND_DIGEST}|g" \
+  -e "s|REGISTRY_PLACEHOLDER/mock-api:latest|${REGISTRY}/mock-api@${MOCK_API_DIGEST}|g" \
+  deploy/cloudrun.yaml \
   | gcloud run services replace - \
       --region="${REGION}" \
       --project="${PROJECT_ID}"
