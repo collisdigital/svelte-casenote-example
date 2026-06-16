@@ -2,6 +2,7 @@
 	import { enhance } from '$app/forms';
 	import Button from '$components/Button.svelte';
 	import Card from '$components/Card.svelte';
+	import CaseNoteDetailModal from '$components/CaseNoteDetailModal.svelte';
 	import ConfirmDialog from '$components/ConfirmDialog.svelte';
 	import StatusTag from '$components/StatusTag.svelte';
 	import Table from '$components/Table.svelte';
@@ -31,6 +32,9 @@
 		'Last updated',
 		'Actions'
 	];
+
+	// The case note shown in the detail modal.
+	let selectedNote = $state<CaseNote | null>(null);
 
 	// The case note awaiting delete confirmation, and the form used to submit it.
 	let pendingDelete = $state<CaseNote | null>(null);
@@ -78,7 +82,15 @@
 						<td data-label="Patient ID" class="px-3 py-3 sr-body-m text-fg-default font-mono">
 							{note.Nhs}
 						</td>
-						<td data-label="Tracking ID" class="px-3 py-3 sr-body-m text-fg-default">{note.CaseNo}</td>
+						<td data-label="Tracking ID" class="px-3 py-3">
+						<button
+							type="button"
+							class="sr-body-m text-brand-link underline-offset-2 hover:underline cursor-pointer"
+							onclick={() => (selectedNote = note)}
+						>
+							{note.CaseNo}
+						</button>
+					</td>
 						<td data-label="Current location" class="px-3 py-3 sr-body-m text-fg-default">
 							{locationName(locations, note.LocHeld)}
 						</td>
@@ -123,6 +135,13 @@
 >
 	<input type="hidden" name="caseNoteSeq" value={pendingDelete?.CaseNoteSeq ?? ''} />
 </form>
+
+<CaseNoteDetailModal
+	open={selectedNote !== null}
+	note={selectedNote}
+	{locations}
+	onclose={() => (selectedNote = null)}
+/>
 
 <ConfirmDialog
 	open={pendingDelete !== null}
