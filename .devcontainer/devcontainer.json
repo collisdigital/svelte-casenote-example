@@ -1,6 +1,6 @@
 {
 	"name": "NHS Case Note Tracking",
-	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:24-trixie",
 	"features": {
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {
 			"moby": false
@@ -17,14 +17,14 @@
 	"portsAttributes": {
 		"5173": {
 			"label": "Frontend (SvelteKit)",
-			"onAutoForward": "openBrowserOnce"
+			"onAutoForward": "notify"
 		},
 		"4000": {
 			"label": "Mock API",
 			"onAutoForward": "silent"
 		}
 	},
-	"onCreateCommand": "corepack enable && corepack prepare pnpm@10.32.1 --activate",
+	"onCreateCommand": "sudo env \"PATH=$PATH\" corepack enable && corepack prepare pnpm@10.32.1 --activate",
 	"postCreateCommand": "pnpm install && pnpm run db:reset",
 	"customizations": {
 		"vscode": {
@@ -32,7 +32,6 @@
 				"svelte.svelte-vscode",
 				"bradlc.vscode-tailwindcss",
 				"esbenp.prettier-vscode",
-				"charliermarsh.ruff",
 				"ms-playwright.playwright",
 				"vitest.explorer",
 				"dbaeumer.vscode-eslint"
