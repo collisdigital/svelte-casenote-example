@@ -1,0 +1,39 @@
+{
+  "name": "nhs-casenote-tracking",
+  "version": "0.1.0",
+  "private": true,
+  "description": "NHS Wales Case Note Tracking — SvelteKit + mock API monorepo",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "packageManager": "pnpm@10.32.1",
+  "scripts": {
+    "dev": "pnpm run --parallel --filter \"./apps/*\" dev",
+    "dev:frontend": "pnpm --filter @casenote/frontend dev",
+    "dev:api": "pnpm --filter @casenote/mock-api dev",
+    "build": "pnpm --filter @casenote/mock-api build && pnpm --filter @casenote/frontend build",
+    "db:migrate": "pnpm --filter @casenote/mock-api db:migrate",
+    "db:seed": "pnpm --filter @casenote/mock-api db:seed",
+    "db:reset": "pnpm --filter @casenote/mock-api db:reset",
+    "setup": "pnpm install && pnpm run db:reset",
+    "test": "pnpm --filter @casenote/frontend test",
+    "test:unit": "pnpm --filter @casenote/frontend test:unit",
+    "test:e2e": "pnpm --filter @casenote/frontend test:e2e",
+    "check": "pnpm --filter @casenote/frontend check",
+    "lint": "pnpm --parallel --filter \"./apps/*\" lint",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "prettier": "^3.4.2"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "better-sqlite3",
+      "esbuild"
+    ],
+    "overrides": {
+      "vite": "^6.0.7"
+    }
+  }
+}

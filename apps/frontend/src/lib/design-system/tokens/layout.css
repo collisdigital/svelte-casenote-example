@@ -1,0 +1,25 @@
+/* ============================================================
+   Single Record Design System — Grid & Layout Tokens
+   Primary design / test target: 1024px–1280px (clinical workstations).
+   ============================================================ */
+
+:root {
+  /* ---- Breakpoints ---- */
+  --breakpoint-xs:  480px;
+  --breakpoint-sm:  480px;
+  --breakpoint-md:  768px;
+  --breakpoint-lg:  1024px;
+  --breakpoint-xl:  1280px;
+  --breakpoint-2xl: 1536px;
+
+  /* ---- Max content widths ---- */
+  --sr-max-width-prose:     720px;   /* body / long-form content */
+  --sr-max-width-form:      560px;   /* single-column forms */
+  --sr-max-width-page:      1400px;  /* page container */
+
+  /* ---- Icon sizes ---- */
+  --sr-icon-size-xs: 16px;  /* inline, dense content (stroke 1.75) */
+  --sr-icon-size-sm: 20px;  /* standard inline (stroke 1.75) */
+  --sr-icon-size-md: 24px;  /* default */
+  --sr-icon-size-lg: 32px;  /* prominent, empty states */
+}

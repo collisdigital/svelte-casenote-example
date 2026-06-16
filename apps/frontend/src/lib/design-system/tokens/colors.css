@@ -1,0 +1,167 @@
+/* ============================================================
+   Single Record Design System — Colour Tokens
+   Tier 1 primitives + Tier 2 semantic aliases (Light + Dark)
+   Never reference primitives directly in components — use semantic tokens.
+   ============================================================ */
+
+:root {
+  /* ---- Blue (NHS Wales Blue — primary brand) ---- */
+  --color-blue-900: #1E3050;
+  --color-blue-800: #325083;
+  --color-blue-700: #3D6199;
+  --color-blue-600: #4C72AE;
+  --color-blue-500: #5C6991;
+  --color-blue-400: #828DAC;
+  --color-blue-300: #AAB1C6;
+  --color-blue-200: #D4D8E2;
+  --color-blue-100: #ECEEF3;
+  --color-blue-50:  #F4F5F8;
+
+  /* ---- Cyan (DHCW Blue — secondary / accent) ---- */
+  --color-cyan-900: #0A6A84;
+  --color-cyan-800: #0D8BAD;
+  --color-cyan-700: #12A3C9;
+  --color-cyan-600: #71ACCD;
+  --color-cyan-500: #8DC0DA;
+  --color-cyan-400: #AFD4E5;
+  --color-cyan-300: #D6EAF2;
+  --color-cyan-100: #EBF5FA;
+  --color-cyan-50:  #F4FAFC;
+
+  /* ---- Navy (DHCW Navy) ---- */
+  --color-navy-900: #1B294A;
+  --color-navy-700: #464C64;
+  --color-navy-500: #707488;
+  --color-navy-300: #9EA1AF;
+  --color-navy-100: #CDCFD6;
+
+  /* ---- Red (Status — error / critical) ---- */
+  --color-red-900: #5F110A;
+  --color-red-800: #8B190F;
+  --color-red-700: #B32014;
+  --color-red-600: #D5281B;
+  --color-red-500: #E03A31;
+  --color-red-400: #EC5E56;
+  --color-red-300: #F48B85;
+  --color-red-200: #F9B5B1;
+  --color-red-100: #FCDBD9;
+  --color-red-50:  #FEF3F2;
+
+  /* ---- Green (Status — success) ---- */
+  --color-green-600: #007F3B;  /* NHS green */
+  --color-green-100: #D9EFE5;
+
+  /* ---- Yellow (Status — warning) ---- */
+  --color-yellow-500: #F8CA4D;
+  --color-yellow-100: #FDF6DC;
+
+  /* ---- Focus ---- */
+  --color-focus-yellow: #FFEB3B;
+
+  /* ---- Grey / Neutral ---- */
+  --color-grey-900: #212B32;
+  --color-grey-600: #4C6272;
+  --color-grey-200: #D8DDE0;
+  --color-grey-100: #F0F4F5;
+  --color-white:    #FFFFFF;
+
+  /* ---- Info Blue (Status — informational) ---- */
+  --color-info-blue-900: #002E5C;
+  --color-info-blue-800: #004483;
+  --color-info-blue-700: #005AA8;
+  --color-info-blue-600: #0D62A3;
+  --color-info-blue-500: #267AB8;
+  --color-info-blue-400: #4E95CA;
+  --color-info-blue-300: #7EB0D9;
+  --color-info-blue-200: #AECCE8;
+  --color-info-blue-100: #D6E8F5;
+  --color-info-blue-50:  #EEF5FC;
+
+  /* ============================================================
+     Tier 2 — Semantic tokens (Light mode — default)
+     ============================================================ */
+
+  /* Interactive */
+  --sr-color-interactive-primary:       var(--color-blue-800);
+  --sr-color-interactive-primary-hover: var(--color-blue-900);
+  --sr-color-interactive-secondary:     var(--color-navy-900);
+  --sr-color-interactive-link:          var(--color-info-blue-700);
+  --sr-color-interactive-destructive:   var(--color-red-600);
+  --sr-color-interactive-disabled:      var(--color-grey-200);
+
+  /* Surface */
+  --sr-color-surface-background:    var(--color-grey-100);
+  --sr-color-surface-small-cards:   var(--color-white);
+  --sr-color-surface-accent:        var(--color-cyan-100);
+  --sr-color-surface-subtle:        var(--color-blue-50);
+  --sr-color-surface-section-cards: var(--color-white);
+
+  /* Text */
+  --sr-color-text-primary:   var(--color-grey-900);
+  --sr-color-text-secondary: var(--color-grey-600);
+  --sr-color-text-inverse:   var(--color-white);
+  --sr-color-text-disabled:  var(--color-navy-300);
+
+  /* Border */
+  --sr-color-border-subtle:  var(--color-grey-100);
+  --sr-color-border-default: var(--color-grey-200);
+  --sr-color-border-strong:  var(--color-grey-600);
+  --sr-color-border-focus:   var(--color-focus-yellow);
+
+  /* Brand (decorative only — never a filled surface w/ white text) */
+  --sr-color-brand-accent: var(--color-cyan-700);
+
+  /* Status */
+  --sr-color-status-critical:         var(--color-red-600);
+  --sr-color-status-critical-surface: var(--color-red-100);
+  --sr-color-status-success:          var(--color-green-600);
+  --sr-color-status-success-surface:  var(--color-green-100);
+  --sr-color-status-warning:          var(--color-yellow-500);
+  --sr-color-status-warning-surface:  var(--color-yellow-100);
+  --sr-color-status-info:             var(--color-info-blue-700);
+  --sr-color-status-info-surface:     var(--color-info-blue-100);
+
+  /* Focus ring inner dark stroke */
+  --sr-color-focus-inner: var(--color-navy-900);
+}
+
+/* ============================================================
+   Tier 2 — Semantic tokens (Dark mode)
+   Apply via [data-theme="dark"] on a container or <html>.
+   ============================================================ */
+
+[data-theme="dark"] {
+  --sr-color-interactive-primary:       var(--color-cyan-900);
+  --sr-color-interactive-primary-hover: var(--color-cyan-800);
+  --sr-color-interactive-secondary:     var(--color-blue-300);
+  --sr-color-interactive-link:          var(--color-cyan-400);
+  --sr-color-interactive-destructive:   var(--color-red-600);
+  --sr-color-interactive-disabled:      var(--color-navy-700);
+
+  --sr-color-surface-background:    var(--color-navy-900);
+  --sr-color-surface-small-cards:   var(--color-cyan-900);
+  --sr-color-surface-accent:        var(--color-blue-900);
+  --sr-color-surface-subtle:        var(--color-navy-700);
+  --sr-color-surface-section-cards: var(--color-blue-900);
+
+  --sr-color-text-primary:   var(--color-white);
+  --sr-color-text-secondary: var(--color-grey-200);
+  --sr-color-text-inverse:   var(--color-grey-900);
+  --sr-color-text-disabled:  var(--color-navy-500);
+
+  --sr-color-border-subtle:  var(--color-navy-700);
+  --sr-color-border-default: var(--color-navy-500);
+  --sr-color-border-strong:  var(--color-navy-300);
+  --sr-color-border-focus:   var(--color-focus-yellow);
+
+  --sr-color-brand-accent: var(--color-cyan-700);
+
+  --sr-color-status-critical:         var(--color-red-100);
+  --sr-color-status-critical-surface: var(--color-blue-900);
+  --sr-color-status-success:          var(--color-green-100);
+  --sr-color-status-success-surface:  var(--color-navy-900);
+  --sr-color-status-warning:          var(--color-yellow-500);
+  --sr-color-status-warning-surface:  var(--color-navy-700);
+  --sr-color-status-info:             var(--color-info-blue-700);
+  --sr-color-status-info-surface:     var(--color-navy-900);
+}

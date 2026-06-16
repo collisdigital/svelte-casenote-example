@@ -1,0 +1,27 @@
+{
+  "name": "@casenote/mock-api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Mock Case Note Tracking API — Fastify + SQLite, contract-aligned with WelshPAS CaseNote schema",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js",
+    "db:migrate": "tsx src/db/migrate.ts",
+    "db:seed": "tsx src/db/seed.ts",
+    "db:reset": "tsx src/db/migrate.ts --fresh && tsx src/db/seed.ts",
+    "lint": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@fastify/cors": "^10.0.1",
+    "better-sqlite3": "^11.7.0",
+    "fastify": "^5.2.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/node": "^22.10.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

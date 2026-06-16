@@ -1,0 +1,143 @@
+/* ============================================================
+   Case Note Tracking — application stylesheet
+   Tailwind v4 (CSS-first) + NHS Wales Single Record design tokens.
+
+   ARCHITECTURE RULES (enforced — see /design-system.md):
+   1. Components may ONLY use the semantic colour utilities declared in the
+      @theme block below (e.g. text-brand-primary, bg-status-critical,
+      border-neutral-muted). Literal Tailwind colours (red-500, blue-600, …)
+      are forbidden in components.
+   2. Flex layout is expressed ONLY through the ui-stack-* utilities
+      (ui-stack-v, ui-stack-h, ui-stack-centered) — never raw
+      `flex flex-col items-center` utility soup.
+   3. Typography uses the sr-* type utilities, bound to SR type tokens.
+   ============================================================ */
+
+@import 'tailwindcss';
+
+/* Tier 1 + Tier 2 design tokens (light + dark via [data-theme="dark"]).
+   The Roboto webfont is loaded via <link> in app.html (a CSS @import for it
+   would violate "@import must precede all other statements" once bundled). */
+@import './lib/design-system/tokens/colors.css';
+@import './lib/design-system/tokens/typography.css';
+@import './lib/design-system/tokens/spacing.css';
+@import './lib/design-system/tokens/elevation.css';
+@import './lib/design-system/tokens/motion.css';
+@import './lib/design-system/tokens/border.css';
+@import './lib/design-system/tokens/layout.css';
+
+/* ------------------------------------------------------------
+   Semantic colour tokens → Tailwind utilities.
+   Each maps to an SR Tier-2 variable so dark mode resolves live.
+   ------------------------------------------------------------ */
+@theme {
+	--font-sans: var(--font-family-primary);
+
+	/* Brand / interactive */
+	--color-brand-primary: var(--sr-color-interactive-primary);
+	--color-brand-primary-hover: var(--sr-color-interactive-primary-hover);
+	--color-brand-secondary: var(--sr-color-interactive-secondary);
+	--color-brand-link: var(--sr-color-interactive-link);
+	--color-brand-accent: var(--sr-color-brand-accent);
+	--color-brand-destructive: var(--sr-color-interactive-destructive);
+	--color-brand-disabled: var(--sr-color-interactive-disabled);
+
+	/* Status */
+	--color-status-critical: var(--sr-color-status-critical);
+	--color-status-critical-surface: var(--sr-color-status-critical-surface);
+	--color-status-success: var(--sr-color-status-success);
+	--color-status-success-surface: var(--sr-color-status-success-surface);
+	--color-status-warning: var(--sr-color-status-warning);
+	--color-status-warning-surface: var(--sr-color-status-warning-surface);
+	--color-status-info: var(--sr-color-status-info);
+	--color-status-info-surface: var(--sr-color-status-info-surface);
+
+	/* Neutral surfaces + borders */
+	--color-neutral-background: var(--sr-color-surface-background);
+	--color-neutral-surface: var(--sr-color-surface-small-cards);
+	--color-neutral-section: var(--sr-color-surface-section-cards);
+	--color-neutral-subtle: var(--sr-color-surface-subtle);
+	--color-neutral-accent: var(--sr-color-surface-accent);
+	--color-neutral-subtle-border: var(--sr-color-border-subtle);
+	--color-neutral-muted: var(--sr-color-border-default);
+	--color-neutral-strong: var(--sr-color-border-strong);
+
+	/* Foreground text */
+	--color-fg-default: var(--sr-color-text-primary);
+	--color-fg-muted: var(--sr-color-text-secondary);
+	--color-fg-inverse: var(--sr-color-text-inverse);
+	--color-fg-disabled: var(--sr-color-text-disabled);
+
+	/* Radii bound to SR border tokens */
+	--radius-sm: var(--sr-radius-sm);
+	--radius-md: var(--sr-radius-md);
+	--radius-lg: var(--sr-radius-lg);
+	--radius-full: var(--sr-radius-full);
+}
+
+/* ------------------------------------------------------------
+   Layout stack abstractions — the ONLY permitted flex utilities.
+   Compose with Tailwind gap-* / px-* / py-* for spacing.
+   ------------------------------------------------------------ */
+@utility ui-stack-v {
+	display: flex;
+	flex-direction: column;
+}
+
+@utility ui-stack-h {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+@utility ui-stack-centered {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* ------------------------------------------------------------
+   Typography utilities bound to SR type tokens.
+   ------------------------------------------------------------ */
+@utility sr-heading-xl {
+	font: var(--sr-font-heading-xl);
+}
+@utility sr-heading-l {
+	font: var(--sr-font-heading-l);
+}
+@utility sr-heading-m {
+	font: var(--sr-font-heading-m);
+}
+@utility sr-heading-s {
+	font: var(--sr-font-heading-s);
+}
+@utility sr-heading-xs {
+	font: var(--sr-font-heading-xs);
+}
+@utility sr-body-m {
+	font: var(--sr-font-body-m);
+}
+@utility sr-body-s {
+	font: var(--sr-font-body-s);
+}
+@utility sr-label {
+	font: var(--sr-font-label);
+	letter-spacing: var(--sr-type-label-tracking);
+}
+@utility sr-caption {
+	font: var(--sr-font-caption);
+	letter-spacing: var(--sr-type-caption-tracking);
+}
+
+/* ------------------------------------------------------------
+   Base layer.
+   ------------------------------------------------------------ */
+@layer base {
+	html {
+		font-family: var(--font-family-primary);
+	}
+
+	body {
+		min-height: 100vh;
+	}
+}

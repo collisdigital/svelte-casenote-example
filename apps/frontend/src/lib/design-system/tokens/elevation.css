@@ -1,0 +1,17 @@
+/* ============================================================
+   Single Record Design System — Elevation Tokens
+   Shadow colour derived from navy-900 (#1B294A), not pure black.
+   Use shadow only for elements that genuinely float. Borders
+   handle structural hierarchy on flat surfaces.
+   ============================================================ */
+
+:root {
+  /* Primary / outline button press affordance (GDS-aligned) */
+  --sr-elevation-button:  0 2px 0 #1B294A;
+
+  /* Cards, panels — gentle lift from page */
+  --sr-elevation-raised:  0 1px 4px rgba(27, 41, 74, 0.12);
+
+  /* Modals, drawers, dropdowns, tooltips */
+  --sr-elevation-overlay: 0 4px 16px rgba(27, 41, 74, 0.18);
+}

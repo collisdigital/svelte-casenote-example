@@ -1,0 +1,32 @@
+/* ============================================================
+   Single Record Design System — Motion Tokens
+   Motion must be purposeful and restrained in clinical use.
+   Never animate content that carries clinical meaning.
+   ============================================================ */
+
+:root {
+  /* ---- Duration ---- */
+  --motion-duration-instant: 0ms;    /* @kind other */ /* immediate state changes */
+  --motion-duration-fast:    100ms;  /* @kind other */ /* micro-interactions (hover, tick) */
+  --motion-duration-base:    200ms;  /* @kind other */ /* default transitions (focus, expand) */
+  --motion-duration-slow:    350ms;  /* @kind other */ /* panel slide, modal entrance */
+  --motion-duration-slower:  500ms;  /* @kind other */ /* page-level transitions (use rarely) */
+
+  /* ---- Easing ---- */
+  --motion-easing-linear:   linear;                       /* @kind other */ /* loading / progress */
+  --motion-easing-standard: cubic-bezier(0.4, 0, 0.2, 1); /* @kind other */ /* most transitions */
+  --motion-easing-enter:    cubic-bezier(0, 0, 0.2, 1);   /* @kind other */ /* entering screen */
+  --motion-easing-exit:     cubic-bezier(0.4, 0, 1, 1);   /* @kind other */ /* leaving screen */
+}
+
+/* Reduced motion is a WCAG 2.2 requirement. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

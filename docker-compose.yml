@@ -1,0 +1,40 @@
+services:
+  mock-api:
+    build:
+      context: .
+      dockerfile: apps/mock-api/Dockerfile
+    container_name: casenote-mock-api
+    environment:
+      HOST: 0.0.0.0
+      PORT: 4000
+      DATABASE_PATH: /data/casenotes.sqlite
+    ports:
+      - '4000:4000'
+    volumes:
+      # Persist mock CRUD transactions across runs.
+      - casenote-db:/data
+    healthcheck:
+      test: ['CMD', 'node', '-e', "fetch('http://localhost:4000/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  frontend:
+    build:
+      context: .
+      dockerfile: apps/frontend/Dockerfile
+    container_name: casenote-frontend
+    environment:
+      HOST: 0.0.0.0
+      PORT: 5173
+      # Reach the API over the compose network.
+      API_BASE_URL: http://mock-api:4000
+      ASSIGNING_AUTHORITY: AA149
+    ports:
+      - '5173:5173'
+    depends_on:
+      mock-api:
+        condition: service_healthy
+
+volumes:
+  casenote-db:

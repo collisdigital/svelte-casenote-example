@@ -1,0 +1,7 @@
+/* ============================================================
+   Single Record Design System — Webfont
+   Primary typeface: Roboto (Google Fonts, Apache 2.0 — real brand font,
+   not a substitution). Fallback: Arial, sans-serif.
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");

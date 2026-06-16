@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output
+.svelte-kit/
+apps/frontend/build/
+apps/mock-api/dist/
+
+# SQLite database + WAL artefacts
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+apps/mock-api/data/
+
+# Test artefacts
+apps/frontend/test-results/
+apps/frontend/playwright-report/
+apps/frontend/.playwright/
+coverage/
+
+# Logs & env
+*.log
+.env
+.env.*
+!.env.example
+
+# Editor / OS
+.DS_Store
+.vscode-test/
+
+# Extracted design system (working copy only — assets are vendored under apps/frontend)
+.design-extracted/

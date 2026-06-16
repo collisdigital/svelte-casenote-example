@@ -1,0 +1,50 @@
+{
+	"name": "NHS Case Note Tracking",
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
+	"features": {
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {
+			"moby": false
+		},
+		"ghcr.io/devcontainers/features/git-lfs:1": {},
+		"ghcr.io/devcontainers/features/common-utils:2": {
+			"installZsh": true,
+			"configureZshAsDefaultShell": false,
+			"upgradePackages": true
+		},
+		"ghcr.io/devcontainers/features/github-cli:1": {}
+	},
+	"forwardPorts": [5173, 4000],
+	"portsAttributes": {
+		"5173": {
+			"label": "Frontend (SvelteKit)",
+			"onAutoForward": "openBrowserOnce"
+		},
+		"4000": {
+			"label": "Mock API",
+			"onAutoForward": "silent"
+		}
+	},
+	"onCreateCommand": "corepack enable && corepack prepare pnpm@10.32.1 --activate",
+	"postCreateCommand": "pnpm install && pnpm run db:reset",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"svelte.svelte-vscode",
+				"bradlc.vscode-tailwindcss",
+				"esbenp.prettier-vscode",
+				"charliermarsh.ruff",
+				"ms-playwright.playwright",
+				"vitest.explorer",
+				"dbaeumer.vscode-eslint"
+			],
+			"settings": {
+				"editor.formatOnSave": true,
+				"editor.defaultFormatter": "esbenp.prettier-vscode",
+				"[svelte]": {
+					"editor.defaultFormatter": "svelte.svelte-vscode"
+				}
+			}
+		}
+	},
+	"remoteUser": "node"
+}
