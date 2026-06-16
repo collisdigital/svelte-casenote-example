@@ -130,7 +130,7 @@ export function seed(): number {
 	return SEED_ROWS.length;
 }
 
-const invokedDirectly = process.argv[1]?.endsWith('seed.ts') ?? false;
+const invokedDirectly = process.argv[1]?.endsWith('seed.ts') || process.argv[1]?.endsWith('seed.js');
 if (invokedDirectly) {
 	const count = seed();
 	console.log(`[seed] inserted ${count} case note tracking records.`);

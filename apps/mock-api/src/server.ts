@@ -47,7 +47,7 @@ export async function buildServer() {
 	return app;
 }
 
-const invokedDirectly = process.argv[1]?.endsWith('server.ts') ?? process.argv[1]?.endsWith('server.js');
+const invokedDirectly = process.argv[1]?.endsWith('server.ts') || process.argv[1]?.endsWith('server.js');
 if (invokedDirectly) {
 	const app = await buildServer();
 	try {

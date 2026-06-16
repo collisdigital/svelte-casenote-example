@@ -1,0 +1,61 @@
+# Cloud Run multi-container service definition.
+# Frontend is the ingress container (receives external traffic on port 8080).
+# Mock API runs as a sidecar on localhost:4000 — no public exposure.
+#
+# Usage: substituted and applied by deploy.sh (REGISTRY_PLACEHOLDER replaced
+# with the actual Artifact Registry path).
+
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: casenote
+spec:
+  template:
+    metadata:
+      annotations:
+        # Scale to zero when idle — no minimum-instance charges.
+        autoscaling.knative.dev/minScale: "0"
+        autoscaling.knative.dev/maxScale: "3"
+        # gen2 is required for multi-container (sidecar) support.
+        run.googleapis.com/execution-environment: gen2
+    spec:
+      # Allow up to 60 s for all containers to start before a request is served.
+      timeoutSeconds: 60
+      containers:
+        # ── Ingress container (SvelteKit / adapter-node) ──────────────────────
+        - name: frontend
+          image: REGISTRY_PLACEHOLDER/frontend:latest
+          ports:
+            - containerPort: 8080
+          env:
+            # Point the SSR server-side fetch at the sidecar over localhost.
+            - name: API_BASE_URL
+              value: http://localhost:4000
+          resources:
+            limits:
+              cpu: "1"
+              memory: 512Mi
+          startupProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 2
+            periodSeconds: 3
+            failureThreshold: 10
+
+        # ── Sidecar container (Fastify + SQLite mock API) ──────────────────────
+        - name: mock-api
+          image: REGISTRY_PLACEHOLDER/mock-api:latest
+          env:
+            - name: PORT
+              value: "4000"
+          resources:
+            limits:
+              cpu: "1"
+              memory: 256Mi
+          startupProbe:
+            # TCP probe — no dedicated health endpoint needed.
+            tcpSocket:
+              port: 4000
+            initialDelaySeconds: 5
+            periodSeconds: 3
+            failureThreshold: 15

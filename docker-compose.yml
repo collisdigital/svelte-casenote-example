@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: apps/mock-api/Dockerfile
+      target: dev
     container_name: casenote-mock-api
     environment:
       HOST: 0.0.0.0
@@ -23,6 +24,7 @@ services:
     build:
       context: .
       dockerfile: apps/frontend/Dockerfile
+      target: dev
     container_name: casenote-frontend
     environment:
       HOST: 0.0.0.0

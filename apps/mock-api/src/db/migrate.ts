@@ -33,7 +33,7 @@ export function migrate(fresh = false): void {
 	`);
 }
 
-const invokedDirectly = process.argv[1]?.endsWith('migrate.ts') ?? false;
+const invokedDirectly = process.argv[1]?.endsWith('migrate.ts') || process.argv[1]?.endsWith('migrate.js');
 if (invokedDirectly) {
 	const fresh = process.argv.includes('--fresh');
 	migrate(fresh);
